@@ -57,7 +57,7 @@ namespace CoreAPI.Server.Controllers
                 return NotFound();
             }
         }
-        [HttpGet("getFirstProduct")]
+        [HttpGet("getFirstProductt")]
         public IActionResult getFirstCategory()
         {
             var category = db.Products.First();
