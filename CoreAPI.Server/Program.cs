@@ -1,8 +1,20 @@
+using CoreAPI.Server.DataService;
+using CoreAPI.Server.IDataService;
 using CoreAPI.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+builder.Services.AddScoped<IDataService, DataService>();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -24,7 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
